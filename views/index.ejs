@@ -1,0 +1,41 @@
+<%- include('partials/header.ejs') %>
+
+<div class="ui main text container">
+    <div class="ui huge header segment">
+        <h1>
+            RESTful Blog App 
+            <a class="ui primary button" href="/blogs/new" style="float: right;"><i class="plus icon"></i>    Add New Blog</a>
+        </h1>
+    </div>
+    <div class="ui top attached segment">
+        <div class="ui divided items">
+            <% blogs.forEach(function(blog){ %>
+                <div class="item">
+                    <div class="image">
+                        <img src="<%= blog.image %>">
+                    </div>
+                    <div class="content">
+                        <a class="ui header" href="/blogs/<%= blog._id %>"><%= blog.title %></a>
+                        <div class="meta">
+                            <span><%= blog.created.toDateString() %></span>
+                        </div>
+                        <div class="description_index">
+                            <p><%- blog.body.substring(0, 100) %> ... </p>
+                        </div>
+                        <div class="extra">
+                            <hr class="style">
+                            <a class="ui green inverted button" href="/blogs/<%= blog._id %>">Read More</a>
+                            <form id="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+                                <button class="ui icon button">
+                                    <i class="trash alternate outline icon"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs') %>
